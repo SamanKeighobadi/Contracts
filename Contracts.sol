@@ -66,7 +66,6 @@ contract Contracts {
                 return "DeadLine is not over";
             }
         }
-       
     }
 
     function Judgment(bool _trustedConfimation) public returns (string memory) {
@@ -80,5 +79,25 @@ contract Contracts {
             return "The project is not approved";
         }
         return "Judgement run";
+    }
+
+    function WithdrawContractor() public payable returns (string memory) {
+        require(
+            msg.sender == contractor,
+            "just contactor can run this function"
+        );
+        require(
+            currentStatus == Status.Ended,
+            "The Project has not yet finished"
+        );
+        contractor.transfer(1100);
+        return "Contractor payment was made";
+    }
+
+    function WithdrawEmployer() public payable returns (string memory) {
+        require(msg.sender == employer, "Just Empoler can run this function");
+        require(currentStatus == Status.Failed, "Project is not failed");
+        employer.transfer(1100);
+        return "The employer was compensated";
     }
 }
