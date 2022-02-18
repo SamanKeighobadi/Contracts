@@ -50,4 +50,22 @@ contract Contracts {
         currentStatus = Status.Started;
         return "Deposit paid";
     }
+
+    function Confirm(bool _confirm) public returns (string memory) {
+        require(msg.sender == employer, "Access Denied");
+        require(currentStatus == Status.Started, "The project has not started");
+
+        if (_confirm == true) {
+            currentStatus = Status.Ended;
+            return "The project was approved by the employer";
+        } else {
+            if (block.timestamp > (day * 84600) + startProjectDate) {
+                currentStatus = Status.Suspended;
+                return "The project was suspended";
+            } else {
+                return "DeadLine is not over";
+            }
+        }
+        return "Confirm run";
+    }
 }
