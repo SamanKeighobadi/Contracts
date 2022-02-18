@@ -33,4 +33,13 @@ contract Contracts {
         day = _day;
         currentStatus = Status.noStarted;
     }
+
+    function Pay() public payable returns (string memory) {
+        require(currentStatus == Status.noStarted, "Status is wrong");
+        require(msg.sender == employer, "Access Denied");
+        require(msg.value == amount, "amount is not enugh");
+        startProjectDate = block.timestamp;
+        currentStatus = Status.Paid;
+        return "Project started";
+    }
 }
