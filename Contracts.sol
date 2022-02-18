@@ -20,4 +20,17 @@ contract Contracts {
         Suspended
     }
     Status currentStatus = Status.noStarted;
+
+    constructor(
+        address payable _employer,
+        address payable _contractor,
+        address _trusted,
+        uint16 _day
+    ) public {
+        employer = _employer;
+        contractor = _contractor;
+        trusted = _trusted;
+        day = _day;
+        currentStatus = Status.noStarted;
+    }
 }
