@@ -66,6 +66,19 @@ contract Contracts {
                 return "DeadLine is not over";
             }
         }
-        return "Confirm run";
+       
+    }
+
+    function Judgment(bool _trustedConfimation) public returns (string memory) {
+        require(msg.sender == trusted, "Just Trusted Can run this function");
+        require(currentStatus == Status.Suspended, "Status is not Suspended");
+        if (_trustedConfimation == true) {
+            currentStatus = Status.Ended;
+            return "The project is approved";
+        } else if (_trustedConfimation == false) {
+            currentStatus = Status.Failed;
+            return "The project is not approved";
+        }
+        return "Judgement run";
     }
 }
