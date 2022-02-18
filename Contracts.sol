@@ -42,4 +42,12 @@ contract Contracts {
         currentStatus = Status.Paid;
         return "Project started";
     }
+
+    function Deposit() public payable returns (string memory) {
+        require(msg.sender == contractor, "Access Denied");
+        require(msg.value == deposit, "amount is least than deposit amount");
+        require(currentStatus == Status.Paid, "Status is not paid");
+        currentStatus = Status.Started;
+        return "Deposit paid";
+    }
 }
